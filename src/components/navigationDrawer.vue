@@ -2,64 +2,51 @@
   <v-card>
     <v-navigation-drawer
       v-model="drawer"
+      color="#1E2937"
       floating
-      permanent
+      class="pt-15"
     >
       <v-list
-        density="compact"
+        dense
         nav
       >
         <v-list-item
-          prepend-icon="mdi-view-dashboard"
-          title="Home"
-          value="home"
-        />
-        <v-list-item
-          prepend-icon="mdi-forum"
-          title="About"
-          value="about"
+          v-for="(item, index) in menuItems"
+          :key="index"
+          :prepend-icon="item.icon"
+          :title="item.title"
+          :to="item.value"
+          :value="item.value"
         />
       </v-list>
     </v-navigation-drawer>
   </v-card>
 </template>
-<script>
-export default {
-    name: 'NavigationDrawer',
+<script setup>
+import { ref, watch } from 'vue';
+const props = defineProps({
+  drawer: Boolean
+});
+const menuItems = [
+  { icon: 'mdi-calendar-multiselect-outline', title: 'Asistencia', value: '/attendance', },
+  { icon: 'mdi-account', title: 'Usuario', value: '/users' },
+  { icon: 'mdi-account-multiple', title: 'pacientes', value: '/patients' },
+  { icon: 'mdi-charity', title: 'Cargo', value: '/charges' },
+  { icon: 'mdi-information', title: 'Acerca de Mi', value: '/about' }
+];
+const drawer = ref(props.drawer);
 
-    data () {
-        return {
-            drawer: false,
-            group: null,
-            items: [
-                {
-                    title: 'Foo',
-                    value: 'foo',
-                },
-                {
-                    title: 'Bar',
-                    value: 'bar',
-                },
-                {
-                    title: 'Fizz',
-                    value: 'fizz',
-                },
-                {
-                    title: 'Buzz',
-                    value: 'buzz',
-                },
-            ],
-        }
-    },
-}
+watch(() => props.drawer, (newValue) => {
+  drawer.value = newValue;
+});
 </script>
 <style scoped>
 .items {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .text-list {
-    padding-left: 26px;
+  padding-left: 26px;
 }
 </style>
