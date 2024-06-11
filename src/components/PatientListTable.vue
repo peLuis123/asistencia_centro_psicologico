@@ -4,7 +4,6 @@
     <template #text>
       <v-text-field
         v-model="search"
-
         label="Search"
         prepend-inner-icon="mdi-magnify"
         variant="outlined"
@@ -30,13 +29,7 @@
         >
           <v-icon>mdi-square-edit-outline</v-icon>
         </v-btn>
-        <v-btn
-          fab
-          small
-          color="red"
-          size="25"
-          @click="handleAction(item)"
-        >
+        <v-btn fab small color="red" size="25" @click="handleAction2(item)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
@@ -44,35 +37,45 @@
   </v-card>
 </template>
   <script setup>
+import { ref, watch } from "vue";
+const props = defineProps({
+  items: {
+    type: Array,
+    default: () => [],
+  },
+});
 
-  import { ref, watch } from 'vue';
-  const props = defineProps({
-    items: {
-      type: Array,
-      default: () => []
-    }
-  });
-
-  const search = ref('');
-  watch(() => search, (newValue) => {
+const search = ref("");
+watch(
+  () => search,
+  (newValue) => {
     search.value = newValue;
-  });
-
-  const items = ref(props.items);
-  watch(() => props.items, (newValue) => {
-    items.value = newValue;
-  });
-
-  const headers = ref([
-    { key: 'id', title: 'ID', sortable: false, },
-    { key: 'nombres', title: 'NOMBRES' },
-    { key: 'apellidos', title: 'APELLIDOS', sortable: false, },
-    { key: 'dni', title: 'CODIGO', sortable: false, },
-    { key: 'cargo', title: 'PAQUETE', sortable: false, },
-    { key: 'actions', title: 'ACCIONES', sortable: false, }
-  ])
-
-  function handleAction (item) {
-    console.log(item.id);
   }
-  </script>
+);
+
+const items = ref(props.items);
+watch(
+  () => props.items,
+  (newValue) => {
+    items.value = newValue;
+  }
+);
+const emit = defineEmits(["edit-item", "delete-item"]);
+
+const headers = ref([
+  { key: "id", title: "ID", sortable: false },
+  { key: "nombres", title: "NOMBRES" },
+  { key: "apellidos", title: "APELLIDOS", sortable: false },
+  { key: "dni", title: "CODIGO", sortable: false },
+  { key: "paquete", title: "PAQUETE", sortable: false },
+  { key: "actions", title: "ACCIONES", sortable: false },
+]);
+
+function handleAction(item) {
+  emit("edit-item", item);
+}
+function handleAction2(item) {
+  emit("delete-item", item);
+}
+</script>
+
