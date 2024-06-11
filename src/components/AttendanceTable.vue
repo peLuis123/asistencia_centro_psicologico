@@ -1,9 +1,6 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <v-card
-
-    flat
-  >
+  <v-card flat>
     <template #text>
       <v-text-field
         v-model="search"
@@ -22,13 +19,7 @@
       :items-per-page-text="'Mostrar'"
     >
       <template #item.actions="{ item }">
-        <v-btn
-          fab
-          small
-          color="red"
-          size="25"
-          @click="handleAction(item)"
-        >
+        <v-btn fab small color="red" size="25" @click="handleAction(item)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
@@ -36,35 +27,40 @@
   </v-card>
 </template>
 <script setup>
-
-import { ref, watch } from 'vue';
+import { ref, watch } from "vue";
 const props = defineProps({
-    items: {
-        type: Array,
-        default: () => []
-    }
+  items: {
+    type: Array,
+    default: () => [],
+  },
 });
-const search = ref('');
-watch(() => search, (newValue) => {
+const search = ref("");
+watch(
+  () => search,
+  (newValue) => {
     search.value = newValue;
-});
+  }
+);
 
 const items = ref(props.items);
-watch(() => props.items, (newValue) => {
+watch(
+  () => props.items,
+  (newValue) => {
     items.value = newValue;
-});
+  }
+);
 
 const headers = ref([
-    { key: 'id', title: 'ID', sortable: false, },
-    { key: 'nombres', title: 'PACIENTE' },
-    { key: 'dni', title: 'CODIGO', sortable: false, },
-    { key: 'paquete', title: 'PAQUETE', sortable: false, },
-    { key: 'entrada', title: 'ENTRADA', sortable: false, },
-    { key: 'salida', title: 'SALIDA', sortable: false, },
-    { key: 'actions', title: 'actions', sortable: false, }
-])
+  { key: "id", title: "ID", sortable: false },
+  { key: "nombres", title: "PACIENTE" },
+  { key: "dni", title: "CODIGO", sortable: false },
+  { key: "paquete", title: "PAQUETE", sortable: false },
+  { key: "entrada", title: "ENTRADA", sortable: false },
+  { key: "salida", title: "SALIDA", sortable: false },
+  { key: "actions", title: "actions", sortable: false },
+]);
 
-function handleAction (item) {
-    console.log(item.id);
+function handleAction(item) {
+  console.log(item.id);
 }
 </script>
