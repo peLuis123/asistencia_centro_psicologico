@@ -32,7 +32,7 @@
   
   <script setup>
 import { ref, reactive, watch } from "vue";
-
+import { Users as UsersAPI } from "@/services/users";
 const props = defineProps({
   open: {
     type: Boolean,
@@ -45,17 +45,15 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["close", "save"]);
-
 const editedUser = reactive({ ...props.user });
-
 const valid = ref(true);
-
-const save = () => {
+const save = async () => {
   if (valid.value) {
-    emit("save", editedUser);
+    await UsersAPI.updateUserById({data: editedUser} );
+    emit("save");
+    emit("close");
   }
 };
-
 const cancel = () => {
   emit("close");
 };

@@ -33,7 +33,7 @@
     
   <script setup>
 import { ref, reactive } from "vue";
-
+import { Users as UsersAPI } from "@/services/users";
 const props = defineProps({
   open: {
     type: Boolean,
@@ -44,7 +44,6 @@ const props = defineProps({
 const emit = defineEmits(["close", "save"]);
 
 const newUser = reactive({
-  id: Math.floor(Math.random() * 10000),
   nombres: "",
   apellidos: "",
   userName: "",
@@ -52,13 +51,15 @@ const newUser = reactive({
 
 const valid = ref(true);
 
-const save = () => {
+const save = async () => {
   if (valid.value) {
+    await UsersAPI.createUser( newUser );
     console.log(newUser);
-    emit("save", newUser);
     newUser.nombres = "";
     newUser.apellidos = "";
     newUser.userName = "";
+    emit("save");
+    emit("close");
   }
 };
 
