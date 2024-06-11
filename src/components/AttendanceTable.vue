@@ -56,8 +56,9 @@ watch(() => props.items, (newValue) => {
 
 const headers = ref([
     { key: 'id', title: 'ID', sortable: false, },
-    { key: 'nombres', title: 'EMPLEADO' },
-    { key: 'dni', title: 'DNI', sortable: false, },
+    { key: 'nombres', title: 'PACIENTE' },
+    { key: 'dni', title: 'CODIGO', sortable: false, },
+    { key: 'paquete', title: 'PAQUETE', sortable: false, },
     { key: 'entrada', title: 'ENTRADA', sortable: false, },
     { key: 'salida', title: 'SALIDA', sortable: false, },
     { key: 'actions', title: 'actions', sortable: false, }

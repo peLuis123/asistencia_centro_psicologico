@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-center">
-    Lista de Sesiones
+    Lista de Paquetes
   </h1>
   <ChargesList />
 </template>

@@ -65,7 +65,7 @@
 
     const headers = ref([
       { key: 'id', title: 'ID', sortable: false, },
-      { key: 'cargo', title: 'CARGO', sortable: false, },
+      { key: 'cargo', title: 'PAQUETE', sortable: false, },
       { key: 'actions', title: 'ACCIONES', sortable: false, }
     ])
 

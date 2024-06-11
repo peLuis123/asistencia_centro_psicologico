@@ -67,8 +67,8 @@
     { key: 'id', title: 'ID', sortable: false, },
     { key: 'nombres', title: 'NOMBRES' },
     { key: 'apellidos', title: 'APELLIDOS', sortable: false, },
-    { key: 'dni', title: 'DNI', sortable: false, },
-    { key: 'cargo', title: 'CARGO', sortable: false, },
+    { key: 'dni', title: 'CODIGO', sortable: false, },
+    { key: 'cargo', title: 'PAQUETE', sortable: false, },
     { key: 'actions', title: 'ACCIONES', sortable: false, }
   ])
 

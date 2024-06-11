@@ -31,7 +31,7 @@ const menuItems = [
   { icon: 'mdi-calendar-multiselect-outline', title: 'Asistencia', value: '/attendance', },
   { icon: 'mdi-account', title: 'Usuario', value: '/users' },
   { icon: 'mdi-account-multiple', title: 'pacientes', value: '/patients' },
-  { icon: 'mdi-charity', title: 'Cargo', value: '/charges' },
+  { icon: 'mdi-charity', title: 'paquete', value: '/charges' },
   { icon: 'mdi-information', title: 'Acerca de Mi', value: '/about' }
 ];
 const drawer = ref(props.drawer);

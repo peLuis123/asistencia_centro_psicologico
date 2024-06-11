@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-center">
-    Asistencia de Empleados
+    Asistencia de Pacientes
   </h1>
   <AttendanceClients />
 </template>
