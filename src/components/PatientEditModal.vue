@@ -37,7 +37,7 @@
 </template>
   
   <script setup>
-import { ref, reactive, defineProps, defineEmits, watch } from "vue";
+import { ref, reactive,  defineEmits, watch } from "vue";
 import { Patients as PatientsAPI } from "@/services/patients";
 import { Packages as PackagesAPI } from "@/services/packages";
 

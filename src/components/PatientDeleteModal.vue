@@ -18,7 +18,7 @@
 </template>
   
   <script setup>
-import { defineProps, defineEmits } from "vue";
+import {  defineEmits } from "vue";
 import { Patients as PatientsAPI } from "@/services/patients";
 
 const props = defineProps({

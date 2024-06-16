@@ -21,7 +21,7 @@
 </template>
       
   <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref,  defineEmits } from "vue";
 import { Packages as PackagesAPI } from "@/services/packages";
 
 const props = defineProps({
