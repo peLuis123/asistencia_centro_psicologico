@@ -25,6 +25,12 @@
             label="Paquete"
             required
           ></v-select>
+          <v-date-picker
+            v-model="newPatient.fechas"
+            label="Fechas de Inicio"
+            multiple
+            required
+          ></v-date-picker>
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -35,8 +41,8 @@
     </v-card>
   </v-dialog>
 </template>
-  
-  <script setup>
+
+<script setup>
 import { ref } from "vue";
 import { Patients as PatientsAPI } from "@/services/patients";
 import { Packages as PackagesAPI } from "@/services/packages";
@@ -49,12 +55,16 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["close", "save"]);
+
 const newPatient = ref({
   nombres: "",
   apellidos: "",
   dni: "",
   paquete: "",
+  fechas: [],
+  fechasInicio: [],
 });
+
 const valid = ref(true);
 const packages = ref([]);
 
@@ -71,16 +81,50 @@ fetchPackages();
 
 const save = async () => {
   if (valid.value) {
-    await PatientsAPI.createPatient(newPatient.value);
-    newPatient.value = { nombres: "", apellidos: "", dni: "", paquete: "" };
-    emit("save");
-    emit("close");
+    try {
+      newPatient.value.fechas.forEach((date) => {
+        newPatient.value.fechasInicio.push(date.toISOString());
+      });
+
+      if (newPatient.value.fechas.length > 0) {
+        const earliestDate = newPatient.value.fechas.reduce(
+          (earliest, date) => {
+            return date < earliest ? date : earliest;
+          }
+        );
+
+        newPatient.value.fechaInicio = earliestDate.toISOString();
+      }
+      newPatient.value.fechas = [];
+
+      await PatientsAPI.createPatient(newPatient.value);
+      newPatient.value = {
+        nombres: "",
+        apellidos: "",
+        dni: "",
+        paquete: "",
+        fechas: [],
+        fechasInicio: [],
+      };
+
+      emit("save");
+      emit("close");
+    } catch (error) {
+      console.error("Error al guardar paciente:", error);
+    }
   }
 };
 
 const cancel = () => {
-  newPatient.value = { nombres: "", apellidos: "", dni: "", paquete: "" };
+  newPatient.value = {
+    nombres: "",
+    apellidos: "",
+    dni: "",
+    paquete: "",
+    fechas: [],
+    fechasInicio: [],
+  };
+
   emit("close");
 };
 </script>
-  

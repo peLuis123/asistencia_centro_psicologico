@@ -36,6 +36,7 @@ export const Patients = {
             const patients = patientsCollection.docs.map((doc) => {
                 return { id: doc.id, ...doc.data() };
             });
+            console.log(patients)
             return patients;
         } catch (error) {
             throw new Error(error);

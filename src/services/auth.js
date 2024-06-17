@@ -19,21 +19,25 @@ export const Auth = {
     },
 
     loginUser: async (data) => {
-        const email = data.email
-        const password = data.password
+        const email = data.email;
+        const password = data.password;
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            return userCredential.user
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const token = await userCredential.user.getIdToken();
+            localStorage.setItem('token', token);
+            return userCredential.user;
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         }
     },
     logoutUser: async () => {
+        console.log('test')
         try {
-            await signOut(auth)
-            return true
+            await signOut(auth);
+            localStorage.removeItem('token');
+            return true;
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         }
     },
     getCurrentUser: () => {

@@ -35,14 +35,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { About as AboutAPI } from "@/services/about";
-const id = ref("XBWjmN16x264xDgy7Xlg");
-// Datos aleatorios
-const nombres = ref("");
-const telefono = ref("");
-const ubicacion = ref("");
-const ruc = ref("");
+import { ref, onMounted } from "vue"
+import { About as AboutAPI } from "@/services/about"
+const id = ref("XBWjmN16x264xDgy7Xlg")
+
+const nombres = ref("")
+const telefono = ref("")
+const ubicacion = ref("")
+const ruc = ref("")
 
 async function saveData() {
   try {
@@ -51,45 +51,45 @@ async function saveData() {
       telefono: telefono.value,
       ubicacion: ubicacion.value,
       ruc: ruc.value,
-    };
-    await AboutAPI.saveAbout(aboutData);
+    }
+    await AboutAPI.saveAbout(aboutData)
   } catch (error) {
-    console.error("Error al guardar los datos:", error);
+    console.error("Error al guardar los datos:", error)
   }
 }
 onMounted(() => {
-  getAboutMe();
-});
+  getAboutMe()
+})
 async function updateData() {
   try {
-    const userId = id.value;
+    const userId = id.value
     const aboutData = {
       nombres: nombres.value,
       telefono: telefono.value,
       ubicacion: ubicacion.value,
       ruc: ruc.value,
-    };
-    await AboutAPI.updateAboutById(aboutData, userId);
+    }
+    await AboutAPI.updateAboutById(aboutData, userId)
     getAboutMe()
   } catch (error) {
-    console.error("Error al guardar los datos:", error);
+    console.error("Error al guardar los datos:", error)
   }
 }
 onMounted(() => {
-  getAboutMe();
-});
+  getAboutMe()
+})
 const getAboutMe = async () => {
   try {
-    const userId = id.value;
-    const aboutMe = await AboutAPI.getAboutById(userId);
+    const userId = id.value
+    const aboutMe = await AboutAPI.getAboutById(userId)
     if (aboutMe) {
-      nombres.value = aboutMe.nombres || "";
-      telefono.value = aboutMe.telefono || "";
-      ubicacion.value = aboutMe.ubicacion || "";
-      ruc.value = aboutMe.ruc || "";
+      nombres.value = aboutMe.nombres || ""
+      telefono.value = aboutMe.telefono || ""
+      ubicacion.value = aboutMe.ubicacion || ""
+      ruc.value = aboutMe.ruc || ""
     }
   } catch (error) {
-    console.error("Error fetching patients:", error);
+    console.error("Error fetching patients:", error)
   }
-};
+}
 </script>

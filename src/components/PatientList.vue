@@ -33,7 +33,6 @@
 </template>
 
 <script setup>
-// Importaciones de componentes y servicios
 import PatientListTable from "@/components/PatientListTable.vue";
 import PatientAddModal from "@/components/PatientAddModal.vue";
 import PatientEditModal from "@/components/PatientEditModal.vue";
@@ -41,14 +40,12 @@ import PatientDeleteModal from "@/components/PatientDeleteModal.vue";
 import { ref, onMounted } from "vue";
 import { Patients as PatientsAPI } from "@/services/patients";
 
-// Variables reactivas
 let items = ref([]);
 const isAddOpen = ref(false);
 const isEditOpen = ref(false);
 const isDeleteOpen = ref(false);
 const selectedPatient = ref({});
 
-// Función para obtener la lista de pacientes
 const getPatients = async () => {
   try {
     const patients = await PatientsAPI.getAllPatients();
@@ -58,12 +55,10 @@ const getPatients = async () => {
   }
 };
 
-// Llamada a la función para obtener pacientes al montar el componente
 onMounted(() => {
   getPatients();
 });
 
-// Función para abrir el modal de agregar paciente
 const openAddModal = () => {
   isAddOpen.value = true;
 };

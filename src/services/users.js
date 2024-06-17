@@ -61,7 +61,7 @@ export const Users = {
         console.log(userId)
         try {
             await deleteDoc(doc(appFirestore, 'users', userId));
-            return true; // Operación exitosa
+            return true; 
         } catch (error) {
             throw new Error(error);
         }
