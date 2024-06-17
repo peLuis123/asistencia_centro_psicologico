@@ -37,7 +37,7 @@
 </template>
   
   <script setup>
-import { ref,  defineEmits } from "vue";
+import { ref } from "vue";
 import { Patients as PatientsAPI } from "@/services/patients";
 import { Packages as PackagesAPI } from "@/services/packages";
 

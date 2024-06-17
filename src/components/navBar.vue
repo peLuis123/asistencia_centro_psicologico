@@ -8,7 +8,7 @@
       @click="$emit('someEvent')"
     />
 
-    <v-toolbar-title>Nombre de la Clinica</v-toolbar-title>
+    <v-toolbar-title>Centro Psicológico FloreSer Ilo</v-toolbar-title>
 
     <v-spacer />
     <div class="mr-2">

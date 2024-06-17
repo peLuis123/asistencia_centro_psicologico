@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, reactive,  defineEmits,watch } from "vue";
+import { ref, reactive,  watch } from "vue";
 import { Packages as PackagesAPI } from "@/services/packages";
 
 const props = defineProps({
