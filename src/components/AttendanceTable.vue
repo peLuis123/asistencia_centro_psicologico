@@ -103,7 +103,7 @@ const filteredItems = ref([]);
 function filterPatientsByToday() {
   const today = format(currentDate.value, "yyyy-MM-dd");
   filteredItems.value = items.value.filter((item) => {
-    // Filtrar pacientes que tengan fechas de inicio igual a la fecha actual
+    
     return item.fechasInicio.some(
       (fecha) => format(new Date(fecha), "yyyy-MM-dd") === today
     );
@@ -111,13 +111,12 @@ function filterPatientsByToday() {
 }
 
 function registrarAsistencia(item) {
-  // Lógica para registrar la asistencia del paciente (entrada)
-  item.entrada = new Date().toISOString(); // Establecer la entrada como la fecha actual
+  console.log(item)
+  item.entrada = new Date().toISOString()
 }
 
 function registrarSalida(item) {
-  // Lógica para registrar la salida del paciente
-  item.salida = new Date().toISOString(); // Establecer la salida como la fecha actual
+  item.salida = new Date().toISOString()
 }
 
 function handleAction(item) {

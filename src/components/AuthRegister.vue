@@ -38,30 +38,31 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
-import { useRouter } from "vue-router"
-import { Auth as AuthAPI } from "@/services/auth"
-const name = ref("")
-const email = ref("")
-const password = ref("")
-const router = useRouter()
-const form = ref(null)
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { Auth as AuthAPI } from "@/services/auth";
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const router = useRouter();
+const form = ref(null);
 
 const register = async () => {
   if (form.value.validate()) {
     try {
-      console.log(email.value, password.value)
+      console.log(email.value, password.value);
       const data = {
+        name: name.value,
         email: email.value,
         password: password.value,
-      }
-      const test = await AuthAPI.registerUser(data)
-      console.log("Usuario registrado:",test)
+      };
+      const test = await AuthAPI.registerUser(data);
+      console.log("Usuario registrado:", test);
     } catch (error) {
-      console.error("Error al registrar usuario:", error.message)
+      console.error("Error al registrar usuario:", error.message);
     }
   }
-}
+};
 </script>
 
 <style scoped>

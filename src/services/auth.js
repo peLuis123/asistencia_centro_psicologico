@@ -5,13 +5,27 @@ import {
     signOut,
     onAuthStateChanged
 } from "firebase/auth"
-
+import { doc, setDoc } from "firebase/firestore";
+function generateUserId() {
+    const randomNumber = Math.floor(Math.random() * 100000);
+    return `user_${randomNumber}`;
+}
 export const Auth = {
     registerUser: async (data) => {
+        const name = data.name
         const email = data.email
         const password = data.password
+        const usuario = generateUserId();
+        console.log(data)
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            const uid = userCredential.user.uid
+            await setDoc(doc(appFirestore, 'users', uid), {
+                name: name,
+                email: email,
+                usuario: usuario,
+                uid: uid 
+            });
             return userCredential.user
         } catch (error) {
             throw new Error(error)

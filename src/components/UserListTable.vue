@@ -29,9 +29,9 @@ watch(() => props.items, (newValue) => {
 
 const headers = ref([
   { key: 'id', title: 'ID', sortable: false },
-  { key: 'nombres', title: 'NOMBRES' },
-  { key: 'apellidos', title: 'APELLIDOS', sortable: false },
-  { key: 'userName', title: 'USUARIO', sortable: false },
+  { key: 'name', title: 'NOMBRES' },
+  // { key: 'apellidos', title: 'APELLIDOS', sortable: false },
+  { key: 'usuario', title: 'USUARIO', sortable: false },
   { key: 'actions', title: 'ACCIONES', sortable: false }
 ]);
 </script>
