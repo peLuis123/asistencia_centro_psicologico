@@ -2,9 +2,11 @@ import { appFirestore } from '@/services/firebaseInit';
 import {
     doc,
     addDoc,
+    setDoc,
     updateDoc,
     deleteDoc,
-    getDocs,collection 
+    getDocs,
+    collection 
 } from 'firebase/firestore';
 
 export const Patients = {
@@ -12,6 +14,15 @@ export const Patients = {
         try {
             const patientRef = await addDoc(collection(appFirestore, 'patients'), newPatient);
             return patientRef.id;
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+
+    addFechaInicio: async (patientId, fecha) => {
+        try {
+            const fechaDoc = { fecha: fecha };
+            await addDoc(collection(appFirestore, `patients/${patientId}/fechasInicio`), fechaDoc);
         } catch (error) {
             throw new Error(error);
         }

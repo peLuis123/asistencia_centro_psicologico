@@ -95,9 +95,15 @@ const save = async () => {
 
         newPatient.value.fechaInicio = earliestDate.toISOString();
       }
-      newPatient.value.fechas = [];
+      const patientId = await PatientsAPI.createPatient(newPatient.value);
+      
+      // Save the dates to the subcollection
+      await Promise.all(
+        newPatient.value.fechasInicio.map((date) =>
+          PatientsAPI.addFechaInicio(patientId, date)
+        )
+      );
 
-      await PatientsAPI.createPatient(newPatient.value);
       newPatient.value = {
         nombres: "",
         apellidos: "",
