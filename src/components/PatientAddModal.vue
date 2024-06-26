@@ -62,7 +62,6 @@ const newPatient = ref({
   dni: "",
   paquete: "",
   fechas: [],
-  fechasInicio: [],
 });
 
 const valid = ref(true);
@@ -80,45 +79,34 @@ const fetchPackages = async () => {
 fetchPackages();
 
 const save = async () => {
-  if (valid.value) {
-    try {
-      newPatient.value.fechas.forEach((date) => {
-        newPatient.value.fechasInicio.push(date.toISOString());
-      });
-
-      if (newPatient.value.fechas.length > 0) {
-        const earliestDate = newPatient.value.fechas.reduce(
-          (earliest, date) => {
-            return date < earliest ? date : earliest;
-          }
-        );
-
-        newPatient.value.fechaInicio = earliestDate.toISOString();
-      }
-      const patientId = await PatientsAPI.createPatient(newPatient.value);
-      
-      // Save the dates to the subcollection
-      await Promise.all(
-        newPatient.value.fechasInicio.map((date) =>
-          PatientsAPI.addFechaInicio(patientId, date)
-        )
-      );
-
-      newPatient.value = {
-        nombres: "",
-        apellidos: "",
-        dni: "",
-        paquete: "",
-        fechas: [],
-        fechasInicio: [],
-      };
-
-      emit("save");
-      emit("close");
-    } catch (error) {
-      console.error("Error al guardar paciente:", error);
+  try {
+    if (newPatient.value.fechas.length === 0) {
+      console.error("Debe seleccionar al menos una fecha de inicio.");
+      return;
     }
+
+    const fechaInicio = newPatient.value.fechas.reduce((earliest, date) => {
+      return date < earliest ? date : earliest;
+    });
+
+    newPatient.value.fechaInicio = fechaInicio;
+    const patientId = await PatientsAPI.createPatient(newPatient.value);
+    resetForm();
+
+    console.log(`Paciente creado con ID: ${patientId}`);
+    emit("close");
+  } catch (error) {
+    console.error("Error al guardar paciente:", error);
   }
+};
+
+const resetForm = () => {
+  newPatient.value = {
+    nombres: "",
+    apellidos: "",
+    dni: "",
+    paquete: "",
+  };
 };
 
 const cancel = () => {
@@ -128,9 +116,7 @@ const cancel = () => {
     dni: "",
     paquete: "",
     fechas: [],
-    fechasInicio: [],
   };
-
   emit("close");
 };
 </script>

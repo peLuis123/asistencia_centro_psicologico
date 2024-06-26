@@ -14,7 +14,8 @@ onMounted(() => {
 });
 const getPatients = async () => {
   try {
-    const patients = await PatientsAPI.getAllPatients();
+    const patients = await PatientsAPI.getSessionsForToday();
+    console.log(patients)
     items.value = patients;
   } catch (error) {
     console.error("Error fetching patients:", error);
